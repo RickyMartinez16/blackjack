@@ -2,22 +2,35 @@ function generateRandomInt(min,max){
     return Math.floor((Math.random() * (max+1 -min)) +min);
 }
 
-let firstCard = generateRandomInt(2, 11);
-let secondCard = generateRandomInt(2, 11);
-let cards = [firstCard, secondCard]
+let cards = [];
 
-let sum = firstCard + secondCard;
+let sum = 0;
 
 let hasBlackJack = false;
-let isAlive = true;
+let isAlive = false;
 
 let message = "";
+
+let player = {
+    name: "Ricky",
+    chips: 150
+}
+
 
 let messageEl = document.getElementById("message-el");
 let sumEl = document.querySelector("#sum-el");
 let cardsEl = document.getElementById("cards-el")
+let playerEl = document.getElementById("player-el")
+
+playerEl.textContent = player.name + ": $" + player.chips;
 
 function start(){
+    isAlive = true;
+    hasBlackJack = false;
+    let firstCard = generateRandomInt(2, 11);
+    let secondCard = generateRandomInt(2, 11);
+    cards = [firstCard, secondCard];
+    sum = firstCard + secondCard;
     renderGame();
 }
 
@@ -34,12 +47,14 @@ function renderGame(){
 
     messageEl.textContent = message;
     sumEl.textContent = "Sum: " + sum;
-    cardsEl.textContent = "Cards: " + cards
+    cardsEl.textContent = "Cards: " + cards;
 }
 
 function newCard(){
-    let card = generateRandomInt(2, 11);
-    sum += card;
-    cards.push(card)
-    renderGame();
+    if(isAlive && hasBlackJack === false){
+        let card = generateRandomInt(2, 11);
+        sum += card;
+        cards.push(card);
+        renderGame();
+    }
 }
