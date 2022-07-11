@@ -4,6 +4,7 @@ function generateRandomInt(min,max){
 
 let firstCard = generateRandomInt(2, 11);
 let secondCard = generateRandomInt(2, 11);
+let cards = [firstCard, secondCard]
 
 let sum = firstCard + secondCard;
 
@@ -17,6 +18,10 @@ let sumEl = document.querySelector("#sum-el");
 let cardsEl = document.getElementById("cards-el")
 
 function start(){
+    renderGame();
+}
+
+function renderGame(){
     if (sum < 21) {
         message = "Do you want to draw a new card?"
     } else if (sum === 21) {
@@ -29,5 +34,12 @@ function start(){
 
     messageEl.textContent = message;
     sumEl.textContent = "Sum: " + sum;
-    cardsEl.textContent = "Cards: " + firstCard + " " + secondCard;   
+    cardsEl.textContent = "Cards: " + cards
+}
+
+function newCard(){
+    let card = generateRandomInt(2, 11);
+    sum += card;
+    cards.push(card)
+    renderGame();
 }
